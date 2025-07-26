@@ -7,7 +7,7 @@ import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 class ResultsPage extends StatelessWidget {
 
-  ResultsPage({required this.bmiResult, required this.resultText, required this.interpretation});
+  const ResultsPage({required this.bmiResult, required this.resultText, required this.interpretation});
 
   final String bmiResult;
   final String resultText;
@@ -51,19 +51,23 @@ class ResultsPage extends StatelessWidget {
                           showTicks: true,
                           axisLineStyle: AxisLineStyle(thickness: 0.15, thicknessUnit: GaugeSizeUnit.factor),
                           ranges: <GaugeRange>[
-                            GaugeRange(startValue: 10, endValue: 18.5, color: Colors.blue,label: 'Underweight',
+                            GaugeRange(startValue: 10, endValue: 18.5, gradient: SweepGradient(colors: [Colors.lightBlueAccent, Colors.blue]),
+                              label: 'Underweight',
                               sizeUnit: GaugeSizeUnit.factor,
                               startWidth: 0.15,
                               endWidth: 0.15,),
-                            GaugeRange(startValue: 18.5, endValue: 24.9, color: Colors.green, label: 'Normal',
+                            GaugeRange(startValue: 18.5, endValue: 24.9,gradient: SweepGradient(colors: [Colors.lightGreenAccent, Colors.green]),
+                              label: 'Normal',
                               startWidth: 0.15,
                               endWidth: 0.15,
                               sizeUnit: GaugeSizeUnit.factor,),
-                            GaugeRange(startValue: 24.9, endValue: 30, color: Colors.orange,label: 'Overweight',
+                            GaugeRange(startValue: 24.9, endValue: 30,gradient: SweepGradient(colors: [Colors.orangeAccent, Colors.deepOrange]),
+                              label: 'Overweight',
                               startWidth: 0.15,
                               endWidth: 0.15,
                               sizeUnit: GaugeSizeUnit.factor,),
-                            GaugeRange(startValue: 30, endValue: 40, color: Colors.red,label: 'Obese',
+                            GaugeRange(startValue: 30, endValue: 40, gradient: SweepGradient(colors: [Colors.redAccent, Colors.red]),
+                              label: 'Obese',
                               startWidth: 0.15,
                               endWidth: 0.15,
                               sizeUnit: GaugeSizeUnit.factor,),
