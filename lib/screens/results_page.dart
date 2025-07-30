@@ -13,6 +13,21 @@ class ResultsPage extends StatelessWidget {
   final String resultText;
   final String interpretation;
 
+  Color getResultColor(String result) {
+    switch (result.toLowerCase()) {
+      case 'underweight':
+        return Colors.blueAccent;
+      case 'normal':
+        return Colors.green;
+      case 'overweight':
+        return Colors.deepOrange;
+      case 'obese':
+        return Colors.red;
+      default:
+        return Colors.white;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double bmi = double.tryParse(bmiResult) ?? 0.0;
@@ -37,10 +52,17 @@ class ResultsPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Text(resultText.toUpperCase(), style: kresultTextStyle, textAlign: TextAlign.center,),
+                  Text(
+                    resultText.toUpperCase(),
+                    style: kresultTextStyle.copyWith(
+                      color: getResultColor(resultText),
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+
                   // BMI Gauge
                   SizedBox(
-                    height: 220,
+                    height: 280,
                     child: SfRadialGauge(
                       axes: <RadialAxis>[
                         RadialAxis(
@@ -50,24 +72,25 @@ class ResultsPage extends StatelessWidget {
                           showLabels: true,
                           showTicks: true,
                           axisLineStyle: AxisLineStyle(thickness: 0.15, thicknessUnit: GaugeSizeUnit.factor),
+                          axisLabelStyle: GaugeTextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                          ),
                           ranges: <GaugeRange>[
                             GaugeRange(startValue: 10, endValue: 18.5, gradient: SweepGradient(colors: [Colors.lightBlueAccent, Colors.blue]),
-                              label: 'Underweight',
                               sizeUnit: GaugeSizeUnit.factor,
                               startWidth: 0.15,
                               endWidth: 0.15,),
                             GaugeRange(startValue: 18.5, endValue: 24.9,gradient: SweepGradient(colors: [Colors.lightGreenAccent, Colors.green]),
-                              label: 'Normal',
                               startWidth: 0.15,
                               endWidth: 0.15,
                               sizeUnit: GaugeSizeUnit.factor,),
                             GaugeRange(startValue: 24.9, endValue: 30,gradient: SweepGradient(colors: [Colors.orangeAccent, Colors.deepOrange]),
-                              label: 'Overweight',
                               startWidth: 0.15,
                               endWidth: 0.15,
                               sizeUnit: GaugeSizeUnit.factor,),
                             GaugeRange(startValue: 30, endValue: 40, gradient: SweepGradient(colors: [Colors.redAccent, Colors.red]),
-                              label: 'Obese',
                               startWidth: 0.15,
                               endWidth: 0.15,
                               sizeUnit: GaugeSizeUnit.factor,),
@@ -88,13 +111,14 @@ class ResultsPage extends StatelessWidget {
                                 style: kBMITextStyle.copyWith(fontSize: 60.0),
                               ),
                               angle: 90,
-                              positionFactor: 1.2,
-                            )
+                              positionFactor: 1.0,
+                            ),
                           ],
                         )
                       ],
                     ),
                   ),
+                  SizedBox(height: 20),
                   Text(
                     interpretation,
                     textAlign: TextAlign.center,
